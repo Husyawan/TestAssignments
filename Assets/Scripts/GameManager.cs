@@ -6,4 +6,5 @@ public static class GameManager
 {
     public static int Rows;
     public static int Columns;
+    public static bool LoadGame;
 }

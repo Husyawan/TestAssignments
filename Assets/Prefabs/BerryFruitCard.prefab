@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8191229418027054850}
   - component: {fileID: 6750177444007528445}
   - component: {fileID: 677309328453647479}
+  - component: {fileID: 8539771478766001669}
   m_Layer: 5
   m_Name: BerryFruitCard
   m_TagString: Untagged
@@ -35,8 +36,8 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -122,6 +123,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8539771478766001669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827262578747928152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f92cd878a339294d8e241fab8a53bc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardId: 2
+  frontImage: {fileID: 5626288457480965789}
+  backImage: {fileID: 6750177444007528445}
+  isMatched: 0
 --- !u!1 &5982490952531928545
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +192,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5982490952531928545}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

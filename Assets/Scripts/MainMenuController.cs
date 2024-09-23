@@ -7,29 +7,33 @@ using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
-    public InputField RowsField; // Assign from the Inspector
-    public InputField ColumnsField; // Assign from the Inspector
-    public Button targetButton; // Assign from the Inspector
+    public InputField RowsField;
+    public InputField ColumnsField; 
+    public Button targetButton;
+    public GameObject LoadGameButton;
 
     public GameObject LoadingPanel;
 
     void Start()
     {
-        // Add listeners to call the function when the input field values change
         RowsField.onValueChanged.AddListener(delegate { CheckInputFields(); });
         ColumnsField.onValueChanged.AddListener(delegate { CheckInputFields(); });
-
-        // Initially check input fields in case they already have values
+        string temp1 = PlayerPrefs.GetString("MatchedCards", "");
+        string temp2 = PlayerPrefs.GetString("FlippedCards", "");
+        if (temp1=="" && temp2=="")
+        {
+            LoadGameButton.SetActive(false);
+        }else
+        {
+            LoadGameButton.SetActive(true);
+        }
         CheckInputFields();
     }
 
-    // This method checks if both input fields are filled
+    
     void CheckInputFields()
-    {
-        // Check if both input fields are not empty
+    { 
         bool isInputFilled = !string.IsNullOrEmpty(RowsField.text) && !string.IsNullOrEmpty(ColumnsField.text);
-
-        // Enable or disable the button based on the input fields
         targetButton.interactable = isInputFilled;
     }
     public void PlayBtn()
