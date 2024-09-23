@@ -10,7 +10,6 @@ public class MainMenuController : MonoBehaviour
     public InputField RowsField;
     public InputField ColumnsField; 
     public Button targetButton;
-    public GameObject LoadGameButton;
 
     public GameObject LoadingPanel;
 
@@ -18,15 +17,6 @@ public class MainMenuController : MonoBehaviour
     {
         RowsField.onValueChanged.AddListener(delegate { CheckInputFields(); });
         ColumnsField.onValueChanged.AddListener(delegate { CheckInputFields(); });
-        string temp1 = PlayerPrefs.GetString("MatchedCards", "");
-        string temp2 = PlayerPrefs.GetString("FlippedCards", "");
-        if (temp1=="" && temp2=="")
-        {
-            LoadGameButton.SetActive(false);
-        }else
-        {
-            LoadGameButton.SetActive(true);
-        }
         CheckInputFields();
     }
 
@@ -40,6 +30,13 @@ public class MainMenuController : MonoBehaviour
     {
         GameManager.Rows = Convert.ToInt32(RowsField.text);
         GameManager.Columns= Convert.ToInt32(ColumnsField.text);
+        LoadingPanel.SetActive(true);
+        SceneManager.LoadScene(1);
+    }
+    public void LoadGame()
+    {
+
+        GameManager.LoadGame = true;
         LoadingPanel.SetActive(true);
         SceneManager.LoadScene(1);
     }

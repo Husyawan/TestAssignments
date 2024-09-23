@@ -9,8 +9,6 @@ public class AudioManager : MonoBehaviour
     [Range(0f, 1f)]
     public float SoundVolume = 1f;
 
-    public bool MuteUI = false;
-
     public Sound[] sounds;
 
     public static AudioManager instance;
@@ -37,45 +35,13 @@ public class AudioManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        SoundMuteUnmute();
         SoundVol();
-        SoundUIVolumeChange(GetSoundValue());
     }
     public void SoundUIVolumeChange(float Volume)
     {
-
         SoundVolume = Volume;
         GetComponent<AudioSource>().volume = SoundVolume;
-
-        SaveSoundValue(SoundVolume);
     }
-    public void SaveSoundValue(float Volume)
-    {
-        PlayerPrefs.SetFloat("SoundVolume", Volume);
-    }
-    public float GetSoundValue()
-    {
-        float x = PlayerPrefs.GetFloat("SoundVolume");
-        return x;
-    }
-
-  
-    private void Update()
-    {
-    }
-    public void SoundMuteUnmute()
-    {
-        if (MuteUI == false)
-        {
-            SoundVolume = 0.5f;
-        }
-        else
-        {
-
-            SoundVolume = 0f;
-        }
-    }
-
     /// Calling of Below Method as ''' =>   GameObject.Find("AudioManager").SendMessage("play", "Click");
 
     public void play(string name)

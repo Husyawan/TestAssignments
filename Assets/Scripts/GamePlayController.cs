@@ -9,8 +9,8 @@ public class GamePlayController : MonoBehaviour
 {
     [Header("Game_Settings")]
     public GameObject[] uniqueCardPrefabs;
-    public int rows = 4;
-    public int columns = 4;
+    private int rows;
+    private int columns;
     public Transform gridParent; 
     public GridLayoutGroup gridLayoutGroup;
 
@@ -26,15 +26,12 @@ public class GamePlayController : MonoBehaviour
 
     private void Start()
     {
+        rows = GameManager.Rows;
+        columns = GameManager.Columns;
         AdjustGridLayout();
         CreateGrid();
-        
-
-        if(GameManager.LoadGame)
-        {
-            LoadGame();
-            UpdateScoreText();
-        }
+        UpdateScoreText();
+       
         Invoke(nameof(waitSomeSecondsthendisable), 1f);
     }
     public void waitSomeSecondsthendisable()
@@ -86,7 +83,7 @@ public class GamePlayController : MonoBehaviour
     // Called when a card is clicked
     void OnCardClicked(GameObject clickedCard)
     {
-       
+        AudioManager.instance.SendMessage("play", "Flipping");
         if (flippedCards.Contains(clickedCard) || clickedCard.GetComponent<Card>().isMatched)
         {
             return;
@@ -122,10 +119,12 @@ public class GamePlayController : MonoBehaviour
         {
             firstCard.GetComponent<Card>().SetMatched(true);
             secondCard.GetComponent<Card>().SetMatched(true);
-            score += 10; 
+            score += 10;
+            AudioManager.instance.SendMessage("play", "MatchedSFx");
         }
         else
         {
+            AudioManager.instance.SendMessage("play", "UnMatchSFX");
             StartCoroutine(FlipBackCards(firstCard, secondCard));
         }
 
@@ -137,9 +136,11 @@ public class GamePlayController : MonoBehaviour
     }
     void CheckGameCompleted()
     {
+       
         bool allMatched = spawnedCards.All(card => card.GetComponent<Card>().isMatched);
         if (allMatched)
         {
+            AudioManager.instance.SendMessage("play", "Game_Over");
             gameCompletedPanel.SetActive(true); 
         }
     }
@@ -177,12 +178,11 @@ public class GamePlayController : MonoBehaviour
 
         PlayerPrefs.SetString("MatchedCards", string.Join(",", matchedIndices));
         PlayerPrefs.SetString("FlippedCards", string.Join(",", flippedIndices));
-
         PlayerPrefs.Save();
     }
 
     // Load the game state
-    void LoadGame()
+    public void LoadGame()
     {
         if (PlayerPrefs.HasKey("Score"))
         {
@@ -208,6 +208,8 @@ public class GamePlayController : MonoBehaviour
                 }
             }
         }
+        UpdateScoreText();
+        Debug.Log("Game Loaded!");
     }
 
     // Shuffle method to randomize the cards
